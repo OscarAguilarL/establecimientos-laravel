@@ -14,7 +14,7 @@ class EstablecimientoController extends Controller
      */
     public function create()
     {
-        return 'Desde create';
+        return view('establecimientos.create');
     }
 
     /**
