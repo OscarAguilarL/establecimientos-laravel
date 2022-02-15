@@ -28,6 +28,26 @@
             @enderror
           </div>
 
+          <div class="form-group">
+            <label for="categoria_id">Categoria</label>
+            <select
+              name="categoria_id"
+              id="categoria_id"
+              class="form-select @error('categoria_id') is-invalid @enderror"
+            >
+              <option
+                value=""
+                selected
+                disabled
+              >-- SELECCIONA UNA CATEGORIA --</option>
+              @foreach ($categorias as $categoria)
+                <option
+                  value="{{ $categoria->id }}"
+                  {{ old('categoria_id') == $categoria->id ? 'selected' : '' }}
+                >{{ $categoria->nombre }}</option>
+              @endforeach
+            </select>
+          </div>
         </fieldset>
       </form>
     </div>
