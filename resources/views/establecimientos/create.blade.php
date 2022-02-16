@@ -96,6 +96,39 @@
               style="height: 400px"
             ></div>
           </div>
+
+          <p class="informacion">Confirma que los siguientes campos son correctos</p>
+
+          <div class="form-group">
+            <label for="direccion">Dirección:</label>
+            <input
+              type="text"
+              id="direccion"
+              placeholder="Dirección..."
+              value="{{ old('direccion') }}"
+              class="form-control @error('direccion') is-invalid @enderror"
+            >
+            @error('direccion')
+              <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+          </div>
+
+          <div class="form-group">
+            <label for="colonia">Colonia:</label>
+            <input
+              type="text"
+              id="colonia"
+              placeholder="Colonia..."
+              value="{{ old('colonia') }}"
+              class="form-control @error('colonia') is-invalid @enderror"
+            >
+            @error('colonia')
+              <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+          </div>
+
+          <input type="hidden" name="lat" name="lat" value="{{ old('lat') }}">
+          <input type="hidden" name="lng" name="lng" value="{{ old('lng') }}">
         </fieldset>
       </form>
     </div>
