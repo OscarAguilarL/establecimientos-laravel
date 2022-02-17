@@ -1,19 +1,27 @@
+import { OpenStreetMapProvider } from "leaflet-geosearch";
+
+const provider = new OpenStreetMapProvider();
+const apikey =
+    "AAPKc6216aeeb78e46a9b32bc276975c33958YuDQzS6ENQWt2wfPXuDnFMrDwGd2q9IUttbQkXXTjE8PH1HCLkJNP9sKYBsnfFP";
+
 document.addEventListener("DOMContentLoaded", () => {
     if (document.querySelector("#mapa")) {
         const lat = 20.273714;
         const lng = -98.947751;
 
         const mapa = L.map("mapa").setView([lat, lng], 16);
+        //Geocode service
+        const geocodeService = L.esri.Geocoding.geocodeService({
+            apikey,
+        });
+        // buscador de direcciones
+        const buscador = document.querySelector("#formbuscador");
+        buscador.addEventListener("input", buscarDireccion);
 
         L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
             attribution:
                 '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         }).addTo(mapa);
-
-        //Geocode service
-        const geocodeService = L.esri.Geocoding.geocodeService({
-            apikey: "AAPKc6216aeeb78e46a9b32bc276975c33958YuDQzS6ENQWt2wfPXuDnFMrDwGd2q9IUttbQkXXTjE8PH1HCLkJNP9sKYBsnfFP",
-        });
 
         // agregar el pin
         let marker;
@@ -45,7 +53,36 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
         });
 
-        const llenarInputs = (result) => {
+        function buscarDireccion(e) {
+            let timerId;
+            clearTimeout(timerId);
+            timerId = setTimeout(() => {
+                provider
+                    .search({ query: `${e.target.value} Hidalgo MX` })
+                    .then((result) => {
+                        if (result[0]) {
+                            // reverse geocoding, cuando el usuario reubica el pin
+                            geocodeService
+                                .reverse()
+                                .latlng(result[0].bounds[0], 16)
+                                .run((err, resultGeocode) => {
+                                    if (err) console.log(err);
+
+                                    console.log(resultGeocode);
+
+                                    // marker.bindPopup(result.address.LongLabel);
+                                    // marker.openPopup();
+
+                                    // // llenar los campos
+                                    // llenarInputs(result);
+                                });
+                        }
+                    })
+                    .catch(console.log);
+            }, 800);
+        }
+
+        function llenarInputs(result) {
             console.log(result);
             document.querySelector("#direccion").value =
                 result.address.Address || "";
@@ -53,6 +90,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 result.address.Neighborhood || "";
             document.querySelector("#lat").value = result.latlng.lat || "";
             document.querySelector("#lng").value = result.latlng.lng || "";
-        };
+        }
     }
 });
