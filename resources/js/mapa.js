@@ -16,7 +16,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         // buscador de direcciones
         const buscador = document.querySelector("#formbuscador");
-        buscador.addEventListener("input", buscarDireccion);
+
+        // eliminar pines previos
+        let markers = new L.featureGroup().addTo(mapa);
+
+        // buscador.addEventListener("input", buscarDireccion);
+        buscador.addEventListener("blur", buscarDireccion);
 
         L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
             attribution:
@@ -30,28 +35,34 @@ document.addEventListener("DOMContentLoaded", () => {
             autoPan: true,
         }).addTo(mapa);
 
-        // detectar el movimiento del marker
-        marker.on("moveend", (e) => {
-            const { lat, lng } = e.target.getLatLng();
-            console.log(lat, lng);
+        // agregar a la capa
+        markers.addLayer(marker);
 
-            // centrar automaticamente
-            mapa.panTo(new L.LatLng(lat, lng));
+        reubicarPin(marker);
 
-            // reverse geocoding, cuando el usuario reubica el pin
-            geocodeService
-                .reverse()
-                .latlng({ lat, lng }, 16)
-                .run((err, result) => {
-                    if (err) console.log(err);
+        function reubicarPin(marker) {
+            // detectar el movimiento del marker
+            marker.on("moveend", (e) => {
+                const { lat, lng } = e.target.getLatLng();
 
-                    marker.bindPopup(result.address.LongLabel);
-                    marker.openPopup();
+                // centrar automaticamente
+                mapa.panTo(new L.LatLng(lat, lng));
 
-                    // llenar los campos
-                    llenarInputs(result);
-                });
-        });
+                // reverse geocoding, cuando el usuario reubica el pin
+                geocodeService
+                    .reverse()
+                    .latlng({ lat, lng }, 16)
+                    .run((err, result) => {
+                        if (err) console.log(err);
+
+                        marker.bindPopup(result.address.LongLabel);
+                        marker.openPopup();
+
+                        // llenar los campos
+                        llenarInputs(result);
+                    });
+            });
+        }
 
         function buscarDireccion(e) {
             let timerId;
@@ -60,7 +71,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 provider
                     .search({ query: `${e.target.value} Hidalgo MX` })
                     .then((result) => {
-                        if (result[0]) {
+                        if (result) {
+                            // limpiar los pines previos
+                            markers.clearLayers();
+
                             // reverse geocoding, cuando el usuario reubica el pin
                             geocodeService
                                 .reverse()
@@ -68,13 +82,26 @@ document.addEventListener("DOMContentLoaded", () => {
                                 .run((err, resultGeocode) => {
                                     if (err) console.log(err);
 
-                                    console.log(resultGeocode);
+                                    // llenar los inputs
+                                    llenarInputs(resultGeocode);
 
-                                    // marker.bindPopup(result.address.LongLabel);
-                                    // marker.openPopup();
+                                    // centrar el mapa
+                                    mapa.setView(resultGeocode.latlng);
 
-                                    // // llenar los campos
-                                    // llenarInputs(result);
+                                    // agregar el pin
+                                    marker = new L.marker(
+                                        resultGeocode.latlng,
+                                        {
+                                            draggable: true,
+                                            autoPan: true,
+                                        }
+                                    ).addTo(mapa);
+
+                                    // asignar el contenedor de markers el nuevo pin
+                                    markers.addLayer(marker);
+
+                                    // mover el pin
+                                    reubicarPin(marker);
                                 });
                         }
                     })
@@ -83,7 +110,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         function llenarInputs(result) {
-            console.log(result);
             document.querySelector("#direccion").value =
                 result.address.Address || "";
             document.querySelector("#colonia").value =
