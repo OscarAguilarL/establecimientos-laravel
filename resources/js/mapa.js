@@ -37,11 +37,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 .run((err, result) => {
                     if (err) console.log(err);
 
-                    console.log(result.address);
-
                     marker.bindPopup(result.address.LongLabel);
                     marker.openPopup();
+
+                    // llenar los campos
+                    llenarInputs(result);
                 });
         });
+
+        const llenarInputs = (result) => {
+            console.log(result);
+            document.querySelector("#direccion").value =
+                result.address.Address || "";
+            document.querySelector("#colonia").value =
+                result.address.Neighborhood || "";
+            document.querySelector("#lat").value = result.latlng.lat || "";
+            document.querySelector("#lng").value = result.latlng.lng || "";
+        };
     }
 });

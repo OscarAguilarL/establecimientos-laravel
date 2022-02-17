@@ -138,13 +138,13 @@
           <input
             type="hidden"
             name="lat"
-            name="lat"
+            id="lat"
             value="{{ old('lat') }}"
           >
           <input
             type="hidden"
             name="lng"
-            name="lng"
+            id="lng"
             value="{{ old('lng') }}"
           >
         </fieldset>
