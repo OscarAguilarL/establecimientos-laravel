@@ -8,6 +8,14 @@
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
   />
+
+  <!-- Esri Leaflet Geocoder -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/esri-leaflet-geocoder@3.1.1/dist/esri-leaflet-geocoder.css"
+    integrity="sha512-IM3Hs+feyi40yZhDH6kV8vQMg4Fh20s9OzInIIAc4nx7aMYMfo+IenRUekoYsHZqGkREUgx0VvlEsgm7nCDW9g=="
+    crossorigin=""
+  >
 @endsection
 
 @section('content')
@@ -127,8 +135,18 @@
             @enderror
           </div>
 
-          <input type="hidden" name="lat" name="lat" value="{{ old('lat') }}">
-          <input type="hidden" name="lng" name="lng" value="{{ old('lng') }}">
+          <input
+            type="hidden"
+            name="lat"
+            name="lat"
+            value="{{ old('lat') }}"
+          >
+          <input
+            type="hidden"
+            name="lng"
+            name="lng"
+            value="{{ old('lng') }}"
+          >
         </fieldset>
       </form>
     </div>
@@ -136,10 +154,14 @@
 @endsection
 
 @section('scripts')
+  <!-- Leafled -->
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.js"
     integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
   ></script>
+
+  <script src="https://unpkg.com/esri-leaflet" defer></script>
+  <script src="https://unpkg.com/esri-leaflet-geocoder" defer></script>
 @endsection
