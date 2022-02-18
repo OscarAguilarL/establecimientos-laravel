@@ -16,6 +16,14 @@
     integrity="sha512-IM3Hs+feyi40yZhDH6kV8vQMg4Fh20s9OzInIIAc4nx7aMYMfo+IenRUekoYsHZqGkREUgx0VvlEsgm7nCDW9g=="
     crossorigin=""
   >
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.0/dropzone.min.css"
+    integrity="sha512-0ns35ZLjozd6e3fJtuze7XJCQXMWmb4kPRbb+H/hacbqu6XfIX0ZRGt6SrmNmv5btrBpbzfdISSd8BAsXJ4t1Q=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
 @endsection
 
 @section('content')
@@ -218,6 +226,17 @@
           </div>
         </fieldset>
 
+        <fieldset class="border p-4 mt-5">
+          <legend class="text-primary"></legend>
+          <div class="form-group">
+            <label for="imagenes">Imagenes</label>
+            <div
+              id="dropzone"
+              class="dropzone form-control"
+            ></div>
+          </div>
+        </fieldset>
+
         <input
           type="hidden"
           name="uuid"
@@ -249,6 +268,14 @@
   ></script>
   <script
     src="https://unpkg.com/esri-leaflet-geocoder"
+    defer
+  ></script>
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.0/min/dropzone.min.js"
+    integrity="sha512-Mn7ASMLjh+iTYruSWoq2nhoLJ/xcaCbCzFs0ZrltJn7ksDBx+e7r5TS7Ce5WH02jDr0w5CmGgklFoP9pejfCNA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
     defer
   ></script>
 @endsection
