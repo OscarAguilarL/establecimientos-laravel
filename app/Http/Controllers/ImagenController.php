@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Imagen;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 
 class ImagenController extends Controller
@@ -27,6 +28,23 @@ class ImagenController extends Controller
         $resp = [
             'archivo' => $ruta_imagen,
         ];
+
+        return response()->json($resp);
+    }
+
+    public function destroy(Request $request)
+    {
+        $imagen = $request->get('imagen');
+
+
+        if (File::exists("storage/$imagen")) {
+            File::delete("storage/$imagen");
+        }
+
+        $resp = ['mensaje' => 'Imagen eliminada', 'imagen' => $imagen];
+
+        $imagenEliminar = Imagen::where('ruta_imagen', '=',  $imagen)->firstOrFail();
+        Imagen::destroy($imagenEliminar->id);
 
         return response()->json($resp);
     }

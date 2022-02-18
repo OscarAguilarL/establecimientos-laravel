@@ -26,6 +26,16 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             removedfile: function (file, resp) {
                 console.log(file);
+
+                axios
+                    .post("/imagenes/destroy", {
+                        imagen: file.nombreServidor,
+                    })
+                    .then(() => {
+                        file.previewElement.parentNode.removeChild(
+                            file.previewElement
+                        );
+                    });
             },
         });
     }
