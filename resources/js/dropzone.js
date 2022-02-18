@@ -12,6 +12,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 "X-CSRF-TOKEN": document.querySelector("meta[name=csrf-token]")
                     .content,
             },
+
+            success: function (file, resp) {
+                console.log({ file, resp });
+            },
+            sending: function (file, xhr, formData) {
+                formData.append("uuid", document.querySelector("#uuid").value);
+                console.log("enviando");
+            },
         });
     }
 });
