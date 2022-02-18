@@ -32,9 +32,12 @@
 
     <div class="mt-5 row justify-content-center">
       <form
-        action=""
+        action="{{ route('establecimient.store') }}"
+        method="POST"
         class="col-md-9 col-12 card card-body"
+        enctype="multipart/form-data"
       >
+        @csrf
         <fieldset class="border p-4">
           <legend class="text-primary">Nombre, categoría e imagen principal</legend>
 
@@ -59,7 +62,7 @@
             <select
               name="categoria_id"
               id="categoria_id"
-              class="form-select @error('categoria_id') is-invalid @enderror"
+              class="form-control @error('categoria_id') is-invalid @enderror"
             >
               <option
                 value=""
@@ -73,6 +76,10 @@
                 >{{ $categoria->nombre }}</option>
               @endforeach
             </select>
+
+            @error('categoria_id')
+              <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
           </div>
 
           <div class="form-group">
@@ -120,6 +127,7 @@
             <input
               type="text"
               id="direccion"
+              name="direccion"
               placeholder="Dirección..."
               value="{{ old('direccion') }}"
               class="form-control @error('direccion') is-invalid @enderror"
@@ -134,6 +142,7 @@
             <input
               type="text"
               id="colonia"
+              name="colonia"
               placeholder="Colonia..."
               value="{{ old('colonia') }}"
               class="form-control @error('colonia') is-invalid @enderror"
