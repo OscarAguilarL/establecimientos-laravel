@@ -83,7 +83,7 @@
           </div>
         </fieldset>
 
-        <fieldset class="border p-4">
+        <fieldset class="border p-4 mt-5">
           <legend class="text-primary">Ubicación</legend>
 
           <div class="form-group">
@@ -148,6 +148,87 @@
             value="{{ old('lng') }}"
           >
         </fieldset>
+
+        <fieldset class="border p-4 mt-5">
+          <legend class="text-primary">Información Establecimiento: </legend>
+          <div class="form-group">
+            <label for="nombre">Teléfono</label>
+            <input
+              type="tel"
+              class="form-control @error('telefono') is-invalid @enderror"
+              id="telefono"
+              placeholder="Teléfono Establecimiento"
+              name="telefono"
+              value="{{ old('telefono') }}"
+            >
+
+            @error('telefono')
+              <div class="invalid-feedback">
+                {{ $message }}
+              </div>
+            @enderror
+          </div>
+
+
+
+          <div class="form-group">
+            <label for="nombre">Descripción</label>
+            <textarea
+              class="form-control  @error('descripcion') is-invalid @enderror"
+              name="descripcion"
+            >{{ old('descripcion') }}</textarea>
+
+            @error('descripcion')
+              <div class="invalid-feedback">
+                {{ $message }}
+              </div>
+            @enderror
+          </div>
+
+          <div class="form-group">
+            <label for="nombre">Hora Apertura:</label>
+            <input
+              type="time"
+              class="form-control @error('apertura') is-invalid @enderror"
+              id="apertura"
+              name="apertura"
+              value="{{ old('apertura') }}"
+            >
+            @error('apertura')
+              <div class="invalid-feedback">
+                {{ $message }}
+              </div>
+            @enderror
+          </div>
+
+          <div class="form-group">
+            <label for="nombre">Hora Cierre:</label>
+            <input
+              type="time"
+              class="form-control @error('cierre') is-invalid @enderror"
+              id="cierre"
+              name="cierre"
+              value="{{ old('cierre') }}"
+            >
+            @error('cierre')
+              <div class="invalid-feedback">
+                {{ $message }}
+              </div>
+            @enderror
+          </div>
+        </fieldset>
+
+        <input
+          type="hidden"
+          name="uuid"
+          id="uuid"
+          value="{{ Str::uuid()->toString() }}"
+        >
+        <input
+          type="submit"
+          value="Registrar establecimiento"
+          class="btn btn-primary mt-3 d-block"
+        >
       </form>
     </div>
   </div>
@@ -162,6 +243,12 @@
     referrerpolicy="no-referrer"
   ></script>
 
-  <script src="https://unpkg.com/esri-leaflet" defer></script>
-  <script src="https://unpkg.com/esri-leaflet-geocoder" defer></script>
+  <script
+    src="https://unpkg.com/esri-leaflet"
+    defer
+  ></script>
+  <script
+    src="https://unpkg.com/esri-leaflet-geocoder"
+    defer
+  ></script>
 @endsection
