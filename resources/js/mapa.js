@@ -14,6 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let mapa;
         let geocodeService;
+        let markers;
+        let marker;
 
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(success, error, options);
@@ -41,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const buscador = document.querySelector("#formbuscador");
 
             // eliminar pines previos
-            let markers = new L.featureGroup().addTo(mapa);
+            markers = new L.featureGroup().addTo(mapa);
 
             // buscador.addEventListener("input", buscarDireccion);
             buscador.addEventListener("blur", buscarDireccion);
@@ -52,7 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }).addTo(mapa);
 
             // agregar el pin
-            let marker;
             marker = new L.marker([lat, lng], {
                 draggable: true,
                 autoPan: true,
