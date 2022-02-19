@@ -6,46 +6,67 @@ const apikey =
 
 document.addEventListener("DOMContentLoaded", () => {
     if (document.querySelector("#mapa")) {
-        const lat =
-            document.querySelector("#lat").value === ""
-                ? 20.273714
-                : document.querySelector("#lat").value;
+        const options = {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0,
+        };
 
-        const lng =
-            document.querySelector("#lng").value === ""
-                ? -98.947751
-                : document.querySelector("#lng").value;
+        let mapa;
+        let geocodeService;
 
-        const mapa = L.map("mapa").setView([lat, lng], 16);
-        //Geocode service
-        const geocodeService = L.esri.Geocoding.geocodeService({
-            apikey,
-        });
-        // buscador de direcciones
-        const buscador = document.querySelector("#formbuscador");
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(success, error, options);
+        }
 
-        // eliminar pines previos
-        let markers = new L.featureGroup().addTo(mapa);
+        function success({ coords }) {
+            const { latitude, longitude } = coords;
 
-        // buscador.addEventListener("input", buscarDireccion);
-        buscador.addEventListener("blur", buscarDireccion);
+            const lat =
+                document.querySelector("#lat").value === ""
+                    ? latitude
+                    : document.querySelector("#lat").value;
 
-        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            attribution:
-                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        }).addTo(mapa);
+            const lng =
+                document.querySelector("#lng").value === ""
+                    ? longitude
+                    : document.querySelector("#lng").value;
 
-        // agregar el pin
-        let marker;
-        marker = new L.marker([lat, lng], {
-            draggable: true,
-            autoPan: true,
-        }).addTo(mapa);
+            mapa = L.map("mapa").setView([lat, lng], 16);
+            //Geocode service
+            geocodeService = L.esri.Geocoding.geocodeService({
+                apikey,
+            });
+            // buscador de direcciones
+            const buscador = document.querySelector("#formbuscador");
 
-        // agregar a la capa
-        markers.addLayer(marker);
+            // eliminar pines previos
+            let markers = new L.featureGroup().addTo(mapa);
 
-        reubicarPin(marker);
+            // buscador.addEventListener("input", buscarDireccion);
+            buscador.addEventListener("blur", buscarDireccion);
+
+            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                attribution:
+                    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            }).addTo(mapa);
+
+            // agregar el pin
+            let marker;
+            marker = new L.marker([lat, lng], {
+                draggable: true,
+                autoPan: true,
+            }).addTo(mapa);
+
+            // agregar a la capa
+            markers.addLayer(marker);
+
+            reubicarPin(marker);
+        }
+
+        function error(err) {
+            console.warn(`ERROR(${err.code}): ${err.message}`);
+        }
 
         function reubicarPin(marker) {
             // detectar el movimiento del marker
