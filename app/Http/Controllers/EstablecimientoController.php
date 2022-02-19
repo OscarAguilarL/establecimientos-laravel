@@ -29,20 +29,20 @@ class EstablecimientoController extends Controller
      */
     public function store(Request $request)
     {
-        // $data = $request->validate([
-        //     'nombre' => 'required',
-        //     'categoria_id' => 'required|exists:Categorias,id',
-        //     'imagen_principal' => 'required|image|max:1000',
-        //     'direccion' => 'required',
-        //     'colonia' => 'required',
-        //     'lat' => 'required',
-        //     'lng' => 'required',
-        //     'telefono' => 'required|numeric',
-        //     'descripcion' => 'required|min:50',
-        //     'apertura' => 'required|date_format:H:i',
-        //     'cierre' => 'required|date_format:H:i|after:apertura',
-        //     'uuid' => 'required|uuid',
-        // ]);
+        $data = $request->validate([
+            'nombre' => 'required',
+            'categoria_id' => 'required|exists:Categorias,id',
+            'imagen_principal' => 'required|image|max:1000',
+            'direccion' => 'required',
+            'colonia' => 'required',
+            'lat' => 'required',
+            'lng' => 'required',
+            'telefono' => 'required|numeric',
+            'descripcion' => 'required|min:50',
+            'apertura' => 'required|date_format:H:i',
+            'cierre' => 'required|date_format:H:i|after:apertura',
+            'uuid' => 'required|uuid',
+        ]);
 
         //guardar la imagen
         $ruta_imagen = $request['imagen_principal']->store('principales', 'public');
@@ -52,6 +52,12 @@ class EstablecimientoController extends Controller
         $img->save();
 
         // guardar en la BD
+        $establecimiento = new Establecimiento($data);
+        $establecimiento->imagen_principal = $ruta_imagen;
+        $establecimiento->user_id = auth()->user()->id;
+        $establecimiento->save();
+
+        return back()->with('estado', 'Tu información se almacenó correctamente');
     }
 
     /**

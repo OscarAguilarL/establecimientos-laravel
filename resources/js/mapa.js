@@ -6,8 +6,15 @@ const apikey =
 
 document.addEventListener("DOMContentLoaded", () => {
     if (document.querySelector("#mapa")) {
-        const lat = 20.273714;
-        const lng = -98.947751;
+        const lat =
+            document.querySelector("#lat").value === ""
+                ? 20.273714
+                : document.querySelector("#lat").value;
+
+        const lng =
+            document.querySelector("#lng").value === ""
+                ? -98.947751
+                : document.querySelector("#lng").value;
 
         const mapa = L.map("mapa").setView([lat, lng], 16);
         //Geocode service
