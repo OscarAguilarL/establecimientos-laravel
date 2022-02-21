@@ -1,26 +1,26 @@
 <template>
   <div class="container my-5">
-    <h2>Restaurantes</h2>
+    <h2>Hoteles</h2>
 
     <div class="row">
       <div
         class="col-md-4 mt-4"
-        v-for="restaurante in this.restaurentes"
-        v-bind:key="restaurante.id"
+        v-for="hotel in this.hoteles"
+        v-bind:key="hotel.id"
       >
         <div class="card">
           <img
-            :src="`storage/${restaurante.imagen_principal}`"
-            :alt="restaurante.nombre"
-            :title="restaurante.nombre"
+            :src="`storage/${hotel.imagen_principal}`"
+            :alt="hotel.nombre"
+            :title="hotel.nombre"
             class="card-img-top"
           />
           <div class="card-body">
-            <h3 class="card-title text-primary font-weight-bold">{{ restaurante.nombre }}</h3>
-            <p class="card-text">{{ restaurante.direccion }}</p>
+            <h3 class="card-title text-primary font-weight-bold">{{ hotel.nombre }}</h3>
+            <p class="card-text">{{ hotel.direccion }}</p>
             <p class="card-text">
               <span class="font-weight-bold">Horario:</span>
-              {{ restaurante.apertura }} - {{ restaurante.cierre }}
+              {{ hotel.apertura }} - {{ hotel.cierre }}
             </p>
 
             <a
@@ -40,12 +40,12 @@
   export default {
     data: function () {
       return {
-        restaurentes: [],
+        hoteles: [],
       }
     },
     mounted() {
-      axios.get('/api/categorias/restaurantes').then((resp) => {
-        this.restaurentes = resp.data
+      axios.get('/api/categorias/hoteles').then((resp) => {
+        this.hoteles = resp.data
       })
     },
   }
