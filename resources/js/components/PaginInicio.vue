@@ -1,5 +1,6 @@
 <template>
   <div>
+    <router-view></router-view>
     <categoria-cafe></categoria-cafe>
     <categoria-restaurante></categoria-restaurante>
     <categoria-hotel></categoria-hotel>
