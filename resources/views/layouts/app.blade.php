@@ -21,7 +21,6 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <script src="http://localhost:8098"></script>
 </head>
 <body>
 

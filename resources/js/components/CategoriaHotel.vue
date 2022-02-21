@@ -38,15 +38,15 @@
   import axios from 'axios'
 
   export default {
-    data: function () {
-      return {
-        hoteles: [],
-      }
-    },
     mounted() {
       axios.get('/api/categorias/hoteles').then((resp) => {
-        this.hoteles = resp.data
+        this.$store.commit('AGREGAR_HOTELES', resp.data)
       })
+    },
+    computed: {
+      hoteles() {
+        return this.$store.state.hoteles
+      },
     },
   }
 </script>
