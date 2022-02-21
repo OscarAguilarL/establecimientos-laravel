@@ -23,10 +23,13 @@
               {{ cafe.apertura }} - {{ cafe.cierre }}
             </p>
 
-            <a
-              href
-              class="btn btn-primary d-block"
-            >Ver lugar</a>
+            <router-link
+              :to="{name: 'establecimiento', params: { id: cafe.id }}">
+              <a
+                href
+                class="btn btn-primary d-block"
+              >Ver lugar</a>
+            </router-link>
           </div>
         </div>
       </div>

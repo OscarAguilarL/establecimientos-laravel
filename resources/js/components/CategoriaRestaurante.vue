@@ -23,10 +23,12 @@
               {{ restaurante.apertura }} - {{ restaurante.cierre }}
             </p>
 
-            <a
-              href
-              class="btn btn-primary d-block"
-            >Ver lugar</a>
+            <router-link :to="{name: 'establecimiento', params: { id: restaurante.id }}">
+              <a
+                href
+                class="btn btn-primary d-block"
+              >Ver lugar</a>
+            </router-link>
           </div>
         </div>
       </div>
@@ -40,7 +42,7 @@
   export default {
     mounted() {
       axios.get('/api/categorias/restaurantes').then((resp) => {
-        this.$store.commit("AGREGAR_RESTAURANTES", resp.data)
+        this.$store.commit('AGREGAR_RESTAURANTES', resp.data)
       })
     },
     computed: {
