@@ -11,7 +11,10 @@
   import CategoriaHotel from './CategoriaHotel'
   import CategoriaRestaurante from './CategoriaRestaurante'
 
+  import store from '../store'
+
   export default {
+    store,
     components: {
       CategoriaCafe,
       CategoriaRestaurante,

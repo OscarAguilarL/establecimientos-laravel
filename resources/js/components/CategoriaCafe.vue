@@ -23,7 +23,10 @@
               {{ cafe.apertura }} - {{ cafe.cierre }}
             </p>
 
-            <a href="" class="btn btn-primary d-block">Ver lugar</a>
+            <a
+              href
+              class="btn btn-primary d-block"
+            >Ver lugar</a>
           </div>
         </div>
       </div>
@@ -32,18 +35,16 @@
 </template>
 
 <script>
-  import axios from 'axios'
-
   export default {
-    data: function () {
-      return {
-        cafes: [],
-      }
-    },
     mounted() {
       axios.get('/api/categorias/cafes').then((resp) => {
-        this.cafes = resp.data
+        this.$store.commit('AGREGAR_CAFES', resp.data)
       })
+    },
+    computed: {
+      cafes() {
+        return this.$store.state.cafes
+      },
     },
   }
 </script>
