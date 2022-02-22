@@ -14,6 +14,7 @@
         :key="establecimiento.id"
         :lat-lng="obtenerCoordenadas(establecimiento)"
         :icon="iconoEstablecimiento(establecimiento)"
+        @click="redireccionar(establecimiento.id)"
       >
         <l-tooltip>
           <div>{{ establecimiento.nombre }} - {{ establecimiento.categoria.nombre }}</div>
@@ -71,6 +72,9 @@
           iconUrl: `images/iconos/${establecimiento.categoria.slug}.png`,
           iconSize: [40, 50],
         })
+      },
+      redireccionar(id) {
+        this.$router.push({ name: 'establecimiento', params: { id } })
       },
     },
     watch: {
