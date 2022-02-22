@@ -9,6 +9,14 @@ use App\Models\Establecimiento;
 
 class APIController extends Controller
 {
+    // metodo para obtener todos los establecimientos
+    public function index()
+    {
+        $establecimientos = Establecimiento::all();
+
+        return response()->json($establecimientos);
+    }
+
     // obtener todas las categorias
     public function categorias()
     {
