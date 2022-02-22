@@ -18,6 +18,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/establecimientos/{establecimiento}', 'APIController@show')->name('establecimientos.show');
 
 // Listado de API
 Route::get('/categorias', 'APIController@categorias')->name('categorias');
