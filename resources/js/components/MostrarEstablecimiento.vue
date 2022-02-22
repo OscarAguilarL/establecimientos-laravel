@@ -1,18 +1,21 @@
 <template>
-  <h1>desde establecimiento</h1>
+  <div class="container my-5">
+    <h2>{{ establecimiento.nombre }}</h2>
+  </div>
 </template>
 
 <script>
   export default {
-    mounted() {
+    created() {
       const { id } = this.$route.params
       axios.get(`/api/establecimientos/${id}`).then((resp) => {
-        console.log(resp.data)
+        this.$store.commit('AGREGAR_ESTABLECIMIENTO', resp.data)
       })
     },
-    computed: {},
+    computed: {
+      establecimiento() {
+        return this.$store.getters.obtenerEstableciento
+      },
+    },
   }
 </script>
-
-<style>
-</style>
