@@ -2,16 +2,16 @@
   <div class="container my-5">
     <h2 class="text-center mb-5">{{ establecimiento.nombre }}</h2>
     <div class="row align-items-start">
-      <div class="col-md-8">
+      <div class="col-md-8 order-2">
         <img
           :src="`../storage/${establecimiento.imagen_principal}`"
           :alt="establecimiento.nombre"
           class="img-fluid"
         />
         <p class="mt-5">{{ establecimiento.descripcion }}</p>
-        <galeria-imagenes></galeria-imagenes>
+        <galeria-imagenes :nombre="establecimiento.nombre"></galeria-imagenes>
       </div>
-      <aside class="col-md-4">
+      <aside class="col-md-4 order-1">
         <div>
           <mapa-ubicacion></mapa-ubicacion>
         </div>
