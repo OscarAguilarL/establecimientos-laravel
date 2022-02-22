@@ -9,9 +9,15 @@
         :url="url"
         :attribution="attribution"
       ></l-tile-layer>
-      <l-tile-layer>
-        <l-tooltip></l-tooltip>
-      </l-tile-layer>
+      <l-marker
+        v-for="establecimiento in establecimientos"
+        :key="establecimiento.id"
+        :lat-lng="obtenerCoordenadas(establecimiento)"
+      >
+        <l-tooltip>
+          <div>{{ establecimiento.nombre }}</div>
+        </l-tooltip>
+      </l-marker>
     </l-map>
   </div>
 </template>
@@ -44,12 +50,28 @@
         showMap: true,
       }
     },
+    created() {
+      axios.get('/api/establecimientos').then((resp) => {
+        this.$store.commit('AGREGAR_ESTABLECIMIENTOS', resp.data)
+      })
+    },
+    computed: {
+      establecimientos() {
+        return this.$store.getters.obtenerEstablecientos
+      },
+    },
+    methods: {
+      obtenerCoordenadas(establecimiento) {
+        const { lat, lng } = establecimiento
+        return { lat, lng }
+      },
+    },
   }
 </script>
 
 <style scoped>
 .mapa {
-  height: 600px;
+  height: 400px;
   width: 100%;
 }
 </style>
