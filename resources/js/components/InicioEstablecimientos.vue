@@ -1,5 +1,6 @@
 <template>
   <div>
+    <listado-categorias></listado-categorias>
     <mapa-establecimientos></mapa-establecimientos>
     <router-view></router-view>
     <categoria-cafe></categoria-cafe>
@@ -9,6 +10,7 @@
 </template>
 
 <script>
+  import ListadoCategorias from './ListadoCategorias'
   import CategoriaCafe from './CategoriaCafe'
   import CategoriaHotel from './CategoriaHotel'
   import CategoriaRestaurante from './CategoriaRestaurante'
@@ -20,6 +22,7 @@
       CategoriaRestaurante,
       CategoriaHotel,
       MapaEstablecimientos,
+      ListadoCategorias,
     },
   }
 </script>

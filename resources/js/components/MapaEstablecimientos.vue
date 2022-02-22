@@ -58,7 +58,7 @@
     },
     computed: {
       establecimientos() {
-        return this.$store.getters.obtenerEstablecientos
+        return this.$store.getters.obtenerEstablecimientos
       },
     },
     methods: {
