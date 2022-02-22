@@ -27,6 +27,7 @@ const store = new Vuex.Store({
     },
     getters: {
         obtenerEstableciento: (state) => state.establecimiento,
+        obtenerImagenes: (state) => state.establecimiento.imagenes,
     },
 });
 

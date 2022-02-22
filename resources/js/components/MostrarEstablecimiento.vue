@@ -9,6 +9,7 @@
           class="img-fluid"
         />
         <p class="mt-5">{{ establecimiento.descripcion }}</p>
+        <galeria-imagenes></galeria-imagenes>
       </div>
       <aside class="col-md-4">
         <div>
@@ -42,10 +43,12 @@
 
 <script>
   import MapaUbicacion from './MapaUbicacion'
+  import GaleriaImagenes from './GaleriaImagenes'
 
   export default {
     components: {
       MapaUbicacion,
+      GaleriaImagenes,
     },
     created() {
       const { id } = this.$route.params

@@ -12,11 +12,11 @@ const routes = [
         path: "/establecimiento/:id",
         name: "establecimiento",
         component: MostrarEstablecimiento,
+        params: true,
     },
 ];
 
 const router = new VueRouter({
-    mode: 'history',
     routes,
 });
 
