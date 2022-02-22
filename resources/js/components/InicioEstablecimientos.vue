@@ -1,5 +1,6 @@
 <template>
   <div>
+    <mapa-establecimientos></mapa-establecimientos>
     <router-view></router-view>
     <categoria-cafe></categoria-cafe>
     <categoria-restaurante></categoria-restaurante>
@@ -11,12 +12,14 @@
   import CategoriaCafe from './CategoriaCafe'
   import CategoriaHotel from './CategoriaHotel'
   import CategoriaRestaurante from './CategoriaRestaurante'
+  import MapaEstablecimientos from './MapaEstablecimientos'
 
   export default {
     components: {
       CategoriaCafe,
       CategoriaRestaurante,
       CategoriaHotel,
+      MapaEstablecimientos,
     },
   }
 </script>
