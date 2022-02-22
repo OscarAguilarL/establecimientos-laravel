@@ -73,6 +73,15 @@
         })
       },
     },
+    watch: {
+      '$store.state.categoria': function () {
+        axios
+          .get(`/api/${this.$store.getters.obtenerCategoria}`)
+          .then((resp) =>
+            this.$store.commit('AGREGAR_ESTABLECIMIENTOS', resp.data)
+          )
+      },
+    },
   }
 </script>
 
