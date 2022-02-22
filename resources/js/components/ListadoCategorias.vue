@@ -1,6 +1,7 @@
 <template>
   <div>
     <nav class="d-flex flex-column flex-md-row container justify-content-md-center">
+      <a @click="seleccionarTodos()">Todos</a>
       <a
         v-for="categoria in categorias"
         :key="categoria.id"
@@ -26,6 +27,11 @@
     methods: {
       seleccionarCategoria(categoria) {
         this.$store.commit('SELECCIONAR_CATEGORIA', categoria.slug)
+      },
+      seleccionarTodos() {
+        axios.get('/api/establecimientos').then((resp) => {
+          this.$store.commit('AGREGAR_ESTABLECIMIENTOS', resp.data)
+        })
       },
     },
   }
