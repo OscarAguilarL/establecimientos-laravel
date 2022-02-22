@@ -2,10 +2,10 @@
   <div>
     <nav class="d-flex flex-column flex-md-row container justify-content-md-center">
       <a
-        href
         v-for="categoria in categorias"
         :key="categoria.id"
         class="m-0"
+        @click="seleccionarCategoria(categoria)"
       >{{ categoria.nombre }}</a>
     </nav>
   </div>
@@ -21,6 +21,11 @@
     computed: {
       categorias() {
         return this.$store.getters.obtenerCategorias
+      },
+    },
+    methods: {
+      seleccionarCategoria(categoria) {
+        this.$store.commit('SELECCIONAR_CATEGORIA', categoria.slug)
       },
     },
   }
