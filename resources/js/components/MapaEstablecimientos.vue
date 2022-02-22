@@ -13,9 +13,10 @@
         v-for="establecimiento in establecimientos"
         :key="establecimiento.id"
         :lat-lng="obtenerCoordenadas(establecimiento)"
+        :icon="iconoEstablecimiento(establecimiento)"
       >
         <l-tooltip>
-          <div>{{ establecimiento.nombre }}</div>
+          <div>{{ establecimiento.nombre }} - {{ establecimiento.categoria.nombre }}</div>
         </l-tooltip>
       </l-marker>
     </l-map>
@@ -37,12 +38,12 @@
     data() {
       return {
         zoom: 13,
-        center: latLng(20.666332695977, -103.392177745699),
+        center: latLng(20.273824, -98.947704),
         url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
         attribution:
           '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
         currentZoom: 11.5,
-        currentCenter: latLng(20.666332695977, -103.392177745699),
+        currentCenter: latLng(20.273824, -98.947704),
         showParagraph: false,
         mapOptions: {
           zoomSnap: 0.5,
@@ -64,6 +65,12 @@
       obtenerCoordenadas(establecimiento) {
         const { lat, lng } = establecimiento
         return { lat, lng }
+      },
+      iconoEstablecimiento(establecimiento) {
+        return L.icon({
+          iconUrl: `images/iconos/${establecimiento.categoria.slug}.png`,
+          iconSize: [40, 50],
+        })
       },
     },
   }

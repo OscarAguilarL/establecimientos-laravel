@@ -12,7 +12,7 @@ class APIController extends Controller
     // metodo para obtener todos los establecimientos
     public function index()
     {
-        $establecimientos = Establecimiento::all();
+        $establecimientos = Establecimiento::with('categoria')->get();
 
         return response()->json($establecimientos);
     }
