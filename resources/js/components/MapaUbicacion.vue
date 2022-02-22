@@ -9,18 +9,26 @@
         :url="url"
         :attribution="attribution"
       ></l-tile-layer>
+
+      <l-marker :latLng="{lat, lng}">
+        <l-tooltip>
+          <div>{{ establecimiento.nombre }}</div>
+        </l-tooltip>
+      </l-marker>
     </l-map>
   </div>
 </template>
 
 <script>
   import { latLng } from 'leaflet'
-  import { LMap, LTileLayer } from 'vue2-leaflet'
+  import { LMap, LTileLayer, LMarker, LTooltip } from 'vue2-leaflet'
 
   export default {
     components: {
       LMap,
       LTileLayer,
+      LMarker,
+      LTooltip,
     },
     data() {
       return {
@@ -37,6 +45,18 @@
         lat: '',
         lng: '',
       }
+    },
+    created() {
+      setTimeout(() => {
+        this.lat = this.$store.getters.obtenerEstableciento.lat
+        this.lng = this.$store.getters.obtenerEstableciento.lng
+        this.center = latLng(this.lat, this.lng)
+      }, 1200)
+    },
+    computed: {
+      establecimiento() {
+        return this.$store.getters.obtenerEstableciento
+      },
     },
   }
 </script>
