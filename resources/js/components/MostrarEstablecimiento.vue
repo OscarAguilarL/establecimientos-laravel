@@ -10,10 +10,12 @@
         />
         <p class="mt-5">{{ establecimiento.descripcion }}</p>
       </div>
-      <aside class="col-md-4 bg-primary">
-        <div></div>
+      <aside class="col-md-4">
+        <div>
+          <mapa-ubicacion></mapa-ubicacion>
+        </div>
 
-        <div class="p-4">
+        <div class="p-4 bg-primary">
           <h2 class="text-center text-white mt-2 mb-4">Más información</h2>
 
           <p class="text-white mt-1">
@@ -39,7 +41,12 @@
 </template>
 
 <script>
+  import MapaUbicacion from './MapaUbicacion'
+
   export default {
+    components: {
+      MapaUbicacion,
+    },
     created() {
       const { id } = this.$route.params
       axios.get(`/api/establecimientos/${id}`).then((resp) => {
