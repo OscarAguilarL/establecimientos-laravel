@@ -79,7 +79,7 @@ class EstablecimientoController extends Controller
      */
     public function edit(Establecimiento $establecimiento)
     {
-        return 'Desde create';
+        return 'Desde edit';
     }
 
     /**

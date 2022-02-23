@@ -19,7 +19,7 @@ Route::get('/', 'InicioController')->name('inicio');
 Auth::routes(['verify' => true]);
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
-    Route::get('/establecimiento/create', 'EstablecimientoController@create')->name('establecimient.create');
+    Route::get('/establecimiento/create', 'EstablecimientoController@create')->name('establecimient.create')->middleware('revisar');
     Route::post('/establecimiento', 'EstablecimientoController@store')->name('establecimient.store');
     Route::get('/establecimiento/edit', 'EstablecimientoController@edit')->name('establecimient.edit');
 
