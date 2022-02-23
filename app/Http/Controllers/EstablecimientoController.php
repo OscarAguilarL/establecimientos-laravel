@@ -102,6 +102,9 @@ class EstablecimientoController extends Controller
      */
     public function update(Request $request, Establecimiento $establecimiento)
     {
+        // ejecutar el policy
+        $this->authorize('update', $establecimiento);
+
         $data = $request->validate([
             'nombre' => 'required',
             'categoria_id' => 'required|exists:Categorias,id',

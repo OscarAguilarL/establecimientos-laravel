@@ -54,6 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 axios
                     .post("/imagenes/destroy", {
                         imagen: file.nombreServidor,
+                        uuid: document.querySelector("#uuid").value,
                     })
                     .then(() => {
                         file.previewElement.parentNode.removeChild(

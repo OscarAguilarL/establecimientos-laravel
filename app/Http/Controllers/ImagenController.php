@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Imagen;
 use Illuminate\Http\Request;
+use App\Models\Establecimiento;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 
@@ -34,6 +35,12 @@ class ImagenController extends Controller
 
     public function destroy(Request $request)
     {
+        // validación
+        $uuid = $request->get('uuid');
+        $establecimiento = Establecimiento::where('uuid', $uuid)->first();
+        $this->authorize('delete', $establecimiento);
+
+        // imagen
         $imagen = $request->get('imagen');
 
 
@@ -43,7 +50,11 @@ class ImagenController extends Controller
 
             // elimina imagen de la BD
             Imagen::where('ruta_imagen', $imagen)->delete();
-            $resp = ['mensaje' => 'Imagen eliminada', 'imagen' => $imagen];
+            $resp = [
+                'mensaje' => 'Imagen eliminada',
+                'imagen' => $imagen,
+                'uuid' => $uuid,
+            ];
         }
 
         return response()->json($resp);
