@@ -267,7 +267,7 @@
           type="hidden"
           name="uuid"
           id="uuid"
-          value="{{ Str::uuid()->toString() }}"
+          value="{{ $establecimiento->uuid }}"
         >
         <input
           type="submit"

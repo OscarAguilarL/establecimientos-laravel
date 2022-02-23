@@ -38,13 +38,13 @@ class ImagenController extends Controller
 
 
         if (File::exists("storage/$imagen")) {
+            // elimina imagen del servidor
             File::delete("storage/$imagen");
+
+            // elimina imagen de la BD
+            Imagen::where('ruta_imagen', $imagen)->delete();
+            $resp = ['mensaje' => 'Imagen eliminada', 'imagen' => $imagen];
         }
-
-        $resp = ['mensaje' => 'Imagen eliminada', 'imagen' => $imagen];
-
-        $imagenEliminar = Imagen::where('ruta_imagen', '=',  $imagen)->firstOrFail();
-        Imagen::destroy($imagenEliminar->id);
 
         return response()->json($resp);
     }
