@@ -66,3 +66,9 @@ legend {
     font-weight: bold;
     color: $indigo;
 }
+
+.dropzone .dz-preview .dz-imagen img {
+    display: block;
+    object-fit: scale-down;
+    width: 200px;
+}

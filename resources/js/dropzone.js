@@ -15,7 +15,30 @@ document.addEventListener("DOMContentLoaded", () => {
                 "X-CSRF-TOKEN": document.querySelector("meta[name=csrf-token]")
                     .content,
             },
+            init: function () {
+                const galeria = document.querySelectorAll(".galeria");
+                if (galeria.length) {
+                    galeria.forEach((img) => {
+                        const imagenPublicada = {};
+                        imagenPublicada.size = 1;
+                        imagenPublicada.name = img.value;
 
+                        this.options.addedfile.call(this, imagenPublicada);
+                        this.options.thumbnail.call(
+                            this,
+                            imagenPublicada,
+                            `/storage/${imagenPublicada.name}`
+                        );
+
+                        imagenPublicada.previewElement.classList.add(
+                            "dz-success"
+                        );
+                        imagenPublicada.previewElement.classList.add(
+                            "dz-complete"
+                        );
+                    });
+                }
+            },
             success: function (file, resp) {
                 console.log(resp);
                 file.nombreServidor = resp.archivo;

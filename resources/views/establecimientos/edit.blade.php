@@ -250,6 +250,17 @@
               class="dropzone form-control"
             ></div>
           </div>
+
+          @if (count($imagenes) > 0)
+            @foreach ($imagenes as $imagen)
+              <input
+                type="hidden"
+                class="galeria"
+                value="{{ $imagen->ruta_imagen }}"
+              >
+            @endforeach
+          @endif
+
         </fieldset>
 
         <input

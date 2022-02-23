@@ -10084,3 +10084,10 @@ legend {
   font-weight: bold;
   color: #6610f2;
 }
+
+.dropzone .dz-preview .dz-imagen img {
+  display: block;
+  -o-object-fit: scale-down;
+     object-fit: scale-down;
+  width: 200px;
+}
