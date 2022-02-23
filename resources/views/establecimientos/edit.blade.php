@@ -271,7 +271,7 @@
         >
         <input
           type="submit"
-          value="Registrar establecimiento"
+          value="Guardar cambios"
           class="btn btn-primary mt-3 d-block"
         >
       </form>

@@ -102,7 +102,47 @@ class EstablecimientoController extends Controller
      */
     public function update(Request $request, Establecimiento $establecimiento)
     {
-        //
+        $data = $request->validate([
+            'nombre' => 'required',
+            'categoria_id' => 'required|exists:Categorias,id',
+            'imagen_principal' => 'image|max:1000',
+            'direccion' => 'required',
+            'colonia' => 'required',
+            'lat' => 'required',
+            'lng' => 'required',
+            'telefono' => 'required|numeric',
+            'descripcion' => 'required|min:50',
+            'apertura' => 'required|date_format:H:i',
+            'cierre' => 'required|date_format:H:i|after:apertura',
+            'uuid' => 'required|uuid',
+        ]);
+
+        $establecimiento->nombre = $data['nombre'];
+        $establecimiento->categoria_id = $data['categoria_id'];
+        $establecimiento->direccion = $data['direccion'];
+        $establecimiento->colonia = $data['colonia'];
+        $establecimiento->lat = $data['lat'];
+        $establecimiento->lng = $data['lng'];
+        $establecimiento->telefono = $data['telefono'];
+        $establecimiento->descripcion = $data['descripcion'];
+        $establecimiento->apertura = $data['apertura'];
+        $establecimiento->cierre = $data['cierre'];
+        $establecimiento->uuid = $data['uuid'];
+
+        // si el usuario sube una imagen
+        if (request('imagen_principal')) {
+            //guardar la imagen
+            $ruta_imagen = $request['imagen_principal']->store('principales', 'public');
+
+            // resize a la imagen
+            $img = Image::make(public_path("storage/{$ruta_imagen}"))->fit(800, 600);
+            $img->save();
+
+            $establecimiento->imagen_principal = $ruta_imagen;
+        }
+        $establecimiento->save();
+
+        return back()->with('estado', 'Tu información se actualizo correctamente');
     }
 
     /**
