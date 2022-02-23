@@ -50,7 +50,7 @@
               name="nombre"
               class="form-control @error('nombre') is-invalid @enderror"
               placeholder="Cafetería la brisa"
-              value="{{ old('nombre') }}"
+              value="{{ $establecimiento->nombre }}"
             >
 
             @error('nombre')
@@ -73,7 +73,7 @@
               @foreach ($categorias as $categoria)
                 <option
                   value="{{ $categoria->id }}"
-                  {{ old('categoria_id') == $categoria->id ? 'selected' : '' }}
+                  {{ $establecimiento->categoria_id == $categoria->id ? 'selected' : '' }}
                 >{{ $categoria->nombre }}</option>
               @endforeach
             </select>
@@ -96,6 +96,12 @@
             @error('imagen_principal')
               <div class="invalid-feedback">{{ $message }}</div>
             @enderror
+            <img
+              src="/storage/{{ $establecimiento->imagen_principal }}"
+              alt="{{ $establecimiento->nombre }}"
+              class="mt-3"
+              style="width: 200px"
+            >
           </div>
         </fieldset>
 
@@ -130,7 +136,7 @@
               id="direccion"
               name="direccion"
               placeholder="Dirección..."
-              value="{{ old('direccion') }}"
+              value="{{ $establecimiento->direccion }}"
               class="form-control @error('direccion') is-invalid @enderror"
             >
             @error('direccion')
@@ -145,7 +151,7 @@
               id="colonia"
               name="colonia"
               placeholder="Colonia..."
-              value="{{ old('colonia') }}"
+              value="{{ $establecimiento->colonia }}"
               class="form-control @error('colonia') is-invalid @enderror"
             >
             @error('colonia')
@@ -157,13 +163,13 @@
             type="hidden"
             name="lat"
             id="lat"
-            value="{{ old('lat') }}"
+            value="{{ $establecimiento->lat }}"
           >
           <input
             type="hidden"
             name="lng"
             id="lng"
-            value="{{ old('lng') }}"
+            value="{{ $establecimiento->lng }}"
           >
         </fieldset>
 
@@ -177,7 +183,7 @@
               id="telefono"
               placeholder="Teléfono Establecimiento"
               name="telefono"
-              value="{{ old('telefono') }}"
+              value="{{ $establecimiento->telefono }}"
             >
 
             @error('telefono')
@@ -194,7 +200,7 @@
             <textarea
               class="form-control  @error('descripcion') is-invalid @enderror"
               name="descripcion"
-            >{{ old('descripcion') }}</textarea>
+            >{{ $establecimiento->descripcion }}</textarea>
 
             @error('descripcion')
               <div class="invalid-feedback">
@@ -210,7 +216,7 @@
               class="form-control @error('apertura') is-invalid @enderror"
               id="apertura"
               name="apertura"
-              value="{{ old('apertura') }}"
+              value="{{ $establecimiento->apertura }}"
             >
             @error('apertura')
               <div class="invalid-feedback">
@@ -226,7 +232,7 @@
               class="form-control @error('cierre') is-invalid @enderror"
               id="cierre"
               name="cierre"
-              value="{{ old('cierre') }}"
+              value="{{ $establecimiento->cierre }}"
             >
             @error('cierre')
               <div class="invalid-feedback">
@@ -237,9 +243,8 @@
         </fieldset>
 
         <fieldset class="border p-4 mt-5">
-          <legend class="text-primary"></legend>
+          <legend class="text-primary">Imágenes del establecimiento</legend>
           <div class="form-group">
-            <label for="imagenes">Imagenes</label>
             <div
               id="dropzone"
               class="dropzone form-control"

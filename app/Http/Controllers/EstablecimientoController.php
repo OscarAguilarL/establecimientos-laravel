@@ -83,6 +83,8 @@ class EstablecimientoController extends Controller
 
         // obtener el establecimiento
         $establecimiento = auth()->user()->establecimiento;
+        $establecimiento->apertura = date('H:i', strtotime($establecimiento->apertura));
+        $establecimiento->cierre = date('H:i', strtotime($establecimiento->cierre));
 
         return view('establecimientos.edit', compact('categorias', 'establecimiento'));
     }
